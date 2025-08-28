@@ -1,0 +1,58 @@
+name: Build and Bundle Plugin
+
+on:
+  # Trigger when a tag is pushed for a release
+  push:
+    tags:
+      - "*.*.*" # This will trigger when a tag like v1.0.0 is pushed
+  # Manual trigger for creating an artifact (button in the UI)
+  workflow_dispatch:
+
+permissions:
+  packages: write
+  contents: write
+
+jobs:
+  build_bundle:
+    name: Build & Bundle Plugin
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Try determine the node version from the plugin manifest
+      - name: Determine Node.js version
+        id: node_version
+        run: |
+          if [ -f ".tilepadPlugin/manifest.json" ]; then
+              NODE_VER=$(jq -r '.bin.node.version // empty' .tilepadPlugin/manifest.json)
+          fi
+          echo "NODE_VER=${NODE_VER:-22.14.0}" >> $GITHUB_ENV
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VER }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Bundle Plugin
+        run: npm run bundle
+
+      # Upload an artifact if manually triggered
+      - name: Upload plugin artifact
+        uses: actions/upload-artifact@v4
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          name: plugin.tilepadPlugin
+          path: plugin.tilepadPlugin
+
+      # Upload a release when a tag was created
+      - name: Upload binary to release
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'push'
+        with:
+          draft: true
+          files: plugin.tilepadPlugin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
