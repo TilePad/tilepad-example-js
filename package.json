@@ -4,13 +4,14 @@
   "description": "Tilepad + Typescript counter example plugin",
   "type": "module",
   "scripts": {
-    "build": "npm run bundle",
-    "bundle": "rollup --config",
+    "build": "rollup --config",
+    "bundle": "npm run build && tilepad bundle --name plugin",
     "prepublishOnly": "npm run build"
   },
   "author": "Jacobtread",
   "license": "MIT",
   "dependencies": {
+    "@tilepad/cli": "^0.5.2",
     "@tilepad/sdk": "0.0.2"
   },
   "devDependencies": {
