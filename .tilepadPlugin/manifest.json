@@ -1,43 +1,42 @@
 {
-    "plugin": {
-        "id": "com.jacobtread.tilepad.test-typescript",
-        "name": "Typescript Counter Example",
-        "version": "0.0.1",
-        "authors": [
-            "Jacobtread"
-        ],
-        "description": "Example typescript counter plugin"
-    },
-    "category": {
-        "label": "Counter",
-        "icon": "images/counter.svg"
-    },
-    "bin": {
-        "node": {
-            "entrypoint": "bin/index.mjs",
-            "version": "=22.14.0"
-        }
-    },
-    "actions": {
-        "increase": {
-            "label": "Increase",
-            "description": "Button to increase the counter",
-            "inspector": "ui/increase.html",
-            "icon": "images/increase.svg",
-            "icon_options": {
-                "padding": 30,
-                "background_color": "#000000"
-            }
-        },
-        "decrease": {
-            "label": "Decrease",
-            "description": "Button to decrease the counter",
-            "inspector": "ui/decrease.html",
-            "icon": "images/decrease.svg",
-            "icon_options": {
-                "padding": 30,
-                "background_color": "#000000"
-            }
-        }
+  "$schema": "https://tilepad.pages.dev/schemas/0.9.0/plugins.json",
+  "plugin": {
+    "id": "com.jacobtread.tilepad.test-typescript",
+    "name": "Typescript Counter Example",
+    "version": "0.0.1",
+    "authors": ["Jacobtread"],
+    "description": "Example typescript counter plugin"
+  },
+  "category": {
+    "label": "Counter",
+    "icon": "images/counter.svg"
+  },
+  "bin": {
+    "node": {
+      "entrypoint": "bin/index.mjs",
+      "version": "=22.14.0"
     }
+  },
+  "actions": {
+    "increase": {
+      "label": "Increase",
+      "description": "Button to increase the counter",
+      "inspector": "ui/increase.html",
+      "icon": "images/increase.svg",
+      "icon_options": {
+        "padding": 30,
+        "background_color": "#000000"
+      }
+    },
+    "decrease": {
+      "label": "Decrease",
+      "description": "Button to decrease the counter",
+      "inspector": "ui/decrease.html",
+      "icon": "images/decrease.svg",
+      "icon_options": {
+        "padding": 30,
+        "background_color": "#000000"
+      }
+    }
+  }
 }
